@@ -3,6 +3,7 @@
 # Version to generate version.h
 MAJOR_VER = 3
 MINOR_VER = 1
+PATCH_VER = 9
 
 # Executable name
 EXEC = game@(EXEC_SUFFIX)
@@ -14,15 +15,10 @@ COMPILER = clang
 CFLAGS += -I.
 CFLAGS += -I$(TUP_CWD)
 CFLAGS += -Wall
-#CFLAGS += -fvisibility=hidden
+CFLAGS += -fvisibility=hidden
 CFLAGS += -mmmx -m3dnow -msse -msse2 -msse3
 CFLAGS += -fno-exceptions -fno-rtti
 CFLAGS += -march=x86-64
-CFLAGS += -Wdeclaration-after-statement -Werror=declaration-after-statement
-CFLAGS += -D_REENTRANT -DHAVE_LINUX_VERSION_H
-
-# Libraries to include
-#CLIBS += other/other.a
 
 ifeq (@(DEBUG),y)
 	CFLAGS += -O0
@@ -51,6 +47,7 @@ endif
 VERSION_HEADER = // File generated automatically by build system
 VERSION_HEADER += \n#define VER_MAJOR $(MAJOR_VER)
 VERSION_HEADER += \n#define VER_MINOR $(MINOR_VER)
+VERSION_HEADER += \n#define VER_PATCH $(PATCH_VER)
 VERSION_HEADER += \n#define VER_TUP_PLATFORM "@(TUP_PLATFORM)"
 VERSION_HEADER += \n#define VER_TUP_ARCH "@(TUP_ARCH)"
 VERSION_HEADER += \n#define VER_COMPILER "$(COMPILER)"

@@ -8,10 +8,6 @@ CLIBS += -ldl
 CLIBS += -lasound
 CLIBS += -lGL -lGLU -lz
 CLIBS += --no-undefined
-CLIBS += -Bstatic
-#CLIBS += -Lsdl/src/
-#CLIBS += -lstaticsdl
-
 
 ifeq (@(TUP_PLATFORM),linux)
 	CLIBS += -pthread
@@ -19,7 +15,6 @@ ifeq (@(TUP_PLATFORM),linux)
 endif
 
 ifeq (@(TUP_PLATFORM),win32)
-	CLIBS += -lstaticsdlmain
 	CLIBS += -shared
 	CLIBS += -mwindows
 	CLIBS += -luser32
@@ -31,11 +26,8 @@ endif
 
 # Directories to search for include files
 CFLAGS += -Isdl/include
-#CLIBS += -Lother/
-#CLIBS += -lother
-CFLAGS += -Iother/
 
 : |> !create_version_h |> version.h
 : foreach *.c | version.h |> !compile |>
-: *.o sdl/src/libstaticsdl.a other/libother.a |> !link |> $(EXEC)
+: *.o sdl/src/libstaticsdl.a |> !link |> $(EXEC)
 
